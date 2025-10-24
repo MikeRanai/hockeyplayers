@@ -10,10 +10,15 @@ $db=new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
 
 // Recherche de joueur
 if(isset($_GET['search'])){
-    $searchName=$db->prepare("select * from joueur where nom like ? or prenom like ?");
+    $searchName=$db->prepare("select * from joueur where nom like ? or prenom like ? or age like ? or ville like ? or poste like ? or email like ?");
     $valeur="%".$_GET['search']."%";
     $searchName->bindParam(1,$valeur);
     $searchName->bindParam(2,$valeur);
+    $searchName->bindParam(3,$valeur);
+    $searchName->bindParam(4,$valeur);
+    $searchName->bindParam(5,$valeur);
+    $searchName->bindParam(6,$valeur);
+
     $searchName->execute();
 }
 else {
@@ -36,12 +41,12 @@ echo '
 <!--NAVBAR-->
     <nav class="navbar navbar-expand-lg bg-body-tertiary mt-5">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/index2.php">Hockey Players</a>
+            <a class="navbar-brand" href="./index2.php">Hockey Players</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-                <form class="d-flex" role="search" action="index2.php" METHOD="GET">
+                <form class="d-flex" role="search" action="/index2.php" METHOD="GET">
                     <input class="form-control me-2" type="search" name="search" id="search" placeholder="Rechercher Joueur" aria-label="Search"/>
                     <button class="btn btn-outline-success" type="submit">Rechercher</button>
                 </form>
